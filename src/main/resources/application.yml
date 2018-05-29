@@ -1,0 +1,124 @@
+spring:
+  profiles:
+    active: test
+
+#dataSource Pool configuration Druid
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 200
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    exceptionSorter: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    useGlobalDataSourceStat: true
+#上传图片或文件大小配置
+  http:
+    multipart:
+      max-file-size: 5mb
+
+
+thread:
+  corePoolSize: 20
+  maxPoolSize: 60
+  keepAliveSeconds: 60
+  queueCapacity: 400
+
+#mybatis配置
+mybatis:
+    typeAliasesPackage: com.dominator.entity
+    mapperLocations: classpath:mapper/**/*.xml
+    configLocation: classpath:mybatis-config.xml
+
+###################################
+#sys start
+###################################
+sys:
+  #token过期时间 30天
+  TokenExpiresTime: 30
+  #30天 单位秒30 * 24 * 60 * 60
+  RedisTokenExpiresTime: 2592000
+
+  #业务相关模块
+  CommonRole: 00000000,99999990
+  #门禁角色id
+  DoorGuardId: 90000002
+  #园区普通员工
+  GardenEmployeeId: 90000001
+  #企业普通员工
+  CompanyEmployeeId: 90000006
+  #缴费管理moduleId
+  PayModuleId: 62
+
+  #导出excel表头11
+  companyuser: 员工姓名,手机号码,身份证,入职时间,在职状态,工号,部门,岗位,职级,工作邮箱
+  gardenuser: 员工姓名,手机号码,身份证,入职时间,在职状态,角色权限,工号,部门,岗位,职级,工作邮箱
+  company: 企业名称,租赁地址,企业联系人,联系人手机号,注册地址,注册电话,开户银行,银行账号,统一社会信用代码,法定代表人
+  paidbills: 账单号,应缴日期,账单名称,账单金额,缴费单位,创建时间,实缴日期
+  unpaidbills: 账单号,应缴日期,账单名称,账单金额,缴费单位,创建时间,推送状态
+  companyvisitors: 通行码,访客姓名,电话,车牌号,预约到访时间,实际到访时间,状态
+  gardenvisitors: 访客姓名,电话,车牌号,拜访单位,预约到访时间,实际到访时间,状态
+
+  #青云
+  QYAccessKeyId: EPRHJJKYZALQPJILMUCC
+  QYAccessKeySecret: HmMVulGRWgWsblNxzjjN7hU7R6p7eiTDPSvXQR6x
+  QYZoneKey: sh1a
+  QYBucketName: pmssaas
+  QYHttpUrl: https://pmssaas.sh1a.qingstor.com/
+
+  # 邮件
+  MailSmtpAuth: true
+  MailSmtpHost: smtp.mxhichina.com
+  MailUser: service@fenful.com
+  MailPassword: FenFul00
+  MailName: 众屏智慧
+
+  #云片网接入的标识
+  ApiKey: ee20441af18b7f5461c03f2b693bb267
+
+  #短信模版id【物业SaaS】您的验证码是#code#。如非本人操作，请忽略本短信
+  #验证码模版id
+  YZM: 【众屏智慧】您的验证码是#code#。如非本人操作，请忽略本短信
+  #账单通知待缴费模版
+  ZDNOT: 【众屏智慧】您的#month#月#type#（￥#money#）已出账,请及时缴费。查看账单详情请点击#url#
+  #账单通知已缴费模版
+  ZDYES: 【众屏智慧】您的#month#月#type#（￥#money#）已缴清。查看账单详情请点击#url#
+  #报修通知待处理模版
+  BXNOT: 【众屏智慧】您收到1条报修申请，请到园区管理后台处理。查看报修详情请点击#url#
+  #报修通知处理中(园区员工)模版
+  BXRDOING: 【众屏智慧】您收到1条维修任务，请及时处理。查看报修详情请点击#url#
+  #报修通知处理中(报修人)模版
+  BXSDOING: 【众屏智慧】您好，园区正在处理您报修的情况。查看报修详情请点击#url#
+  #报修通知已处理(报修人)模版
+  BXYES: 【众屏智慧】您好，园区已经成功处理您报修的情况。查看报修详情请点击#url#
+  #访客通知已到访
+  FKYES: 【众屏智慧】您好，您邀请的#username#(#phone#)已进入园区，请及时接待
+  #访客进入园区失败
+  FKGQ: 【众屏智慧】您好，您邀请的#username#(#phone#)进入园区失败，请及时联系访客
+  #访客通知已过期
+  #FKGQ=【众屏智慧】您好，#username##xb#（#phone#）的通行证已过期。查看访客信息请点击#url#
+  #被邀请访客通知
+  BEFK: 【众屏智慧】您好，#username#邀请您于#day#到#company#(#address#)莅临指导，详情请点击#url#
+  #开户结果通知
+  OPEN: 【众屏智慧】您好，您邀请的#username#(#phone#)已进入园区，请及时接待
+  #企业预约咨询
+  CONSULT: 【众屏智慧】您好,#name#(#userName#)预约咨询事务，请尽快处理
+
+  #默认已认证头像url
+  HEADIMG: http://ozwyaj026.bkt.clouddn.com/bae9ea159094495daade3c55d245fb34.jpeg
+  #默认未认证头像url
+  HEADNIMG: http://ozwyaj026.bkt.clouddn.com/aae4ad6faea74b048fc98389767287c5.png
+  #默认物业公司logo
+  PROPERTY_LOGO: http://ozwyaj026.bkt.clouddn.com/9bbae616c18b416ab8677bba8eef290b.png
+
+
+

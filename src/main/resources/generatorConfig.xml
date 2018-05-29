@@ -1,0 +1,361 @@
+<?com.myutil.entity.xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry
+			location="/Users/luoxingcheng/.m2/repository/mysql/mysql-connector-java/5.1.44/mysql-connector-java-5.1.44.jar"/>
+	<context id="my" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressDate" value="false"/>
+			<!--<property name="suppressAllComments" value="true"/>-->
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://139.198.189.46:13307/pms"
+						userId="mydev"
+						password="1Qaz2wsx!@#"/>
+
+		<javaModelGenerator targetPackage="com.dominator.entity"
+							targetProject="/Users/luoxingcheng/IdeaProjects/pms-core/src/main/java">
+			<property name="enableSubPackages" value="true"/>
+			<property name="trimStrings" value="true"/>
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mapper"
+						 targetProject="/Users/luoxingcheng/IdeaProjects/pms-core/src/main/resources">
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+
+		<javaClientGenerator targetPackage="com.dominator.mapper"
+							 targetProject="/Users/luoxingcheng/IdeaProjects/pms-core/src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true"/>
+		</javaClientGenerator>
+		<!--<table tableName="aip_order" domainObjectName="AipOrder"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="aip_user" domainObjectName="AipUser"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_address" domainObjectName="TAddress"-->
+		<!--enableCountByExample="true" enableUpdateByExample="true"-->
+		<!--enableDeleteByExample="true" enableSelectByExample="true"-->
+		<!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_api" domainObjectName="TApi"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_api_log" domainObjectName="TApiLog"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_company" domainObjectName="TCompany"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_company_bill" domainObjectName="TCompanyBill"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_company_role_modules" domainObjectName="TCompanyRoleModules"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_company_user_role" domainObjectName="TCompanyUserRole"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_garden" domainObjectName="TGarden"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_garden_role_modules" domainObjectName="TGardenRoleModules"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_garden_user" domainObjectName="TGardenUser"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_garden_user_role" domainObjectName="TGardenUserRole"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_garden_weixin_public_config" domainObjectName="TGardenWeixinPublicConfig"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_gate_auth" domainObjectName="TGateAuth"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_hf_company" domainObjectName="THfCompany"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_hf_property" domainObjectName="THfProperty"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_hf_province_city" domainObjectName="THfProvinceCity"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_login_info" domainObjectName="TLoginInfo"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_modules" domainObjectName="TModules"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_msg" domainObjectName="TMsg"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_msg_atts" domainObjectName="TMsgAtts"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_msg_send" domainObjectName="TMsgSend"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_order" domainObjectName="TOrder"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_pay_type" domainObjectName="TPayType"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_property" domainObjectName="TProperty"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_property_merchant" domainObjectName="TPropertyMerchant"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_property_pay_merchant" domainObjectName="TPropertyPayMerchant"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_property_role_modules" domainObjectName="TPropertyRoleModules"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_property_user" domainObjectName="TPropertyUser"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_property_user_role" domainObjectName="TPropertyUserRole"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_property_weixin_public_config" domainObjectName="TPropertyWeixinPublicConfig"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_repair" domainObjectName="TRepair"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_role" domainObjectName="TRole"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_sms" domainObjectName="TSms"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_user" domainObjectName="TUser"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_visitor" domainObjectName="TVisitor"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_visitor_zj" domainObjectName="TVisitorZj"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_authorizer_access_token" domainObjectName="TblAuthorizerAccessToken"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_otosaas_order" domainObjectName="TblOtosaasOrder"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_otosaas_order_pay_result" domainObjectName="TblOtosaasOrderPayResult"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_otosaas_order_refund_result" domainObjectName="TblOtosaasOrderRefundResult"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_public_account" domainObjectName="TblPublicAccount"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_webpage_access_token" domainObjectName="TblWebpageAccessToken"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_weixin_user" domainObjectName="TblWeixinUser"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_authorization_code" domainObjectName="TblWxopenAuthorizationCode"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_authorization_info" domainObjectName="TblWxopenAuthorizationInfo"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_authorizer_account_info" domainObjectName="TblWxopenAuthorizerAccountInfo"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_comp_access_token" domainObjectName="TblWxopenCompAccessToken"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_component_verify_ticket" domainObjectName="TblWxopenComponentVerifyTicket"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_jsapi_ticket" domainObjectName="TblWxopenJsapiTicket"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_pre_auth_code" domainObjectName="TblWxopenPreAuthCode"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_wxopen_template" domainObjectName="TblWxopenTemplate"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_yee_lock" domainObjectName="TblYeeLock"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_yee_lock_access_token" domainObjectName="TblYeeLockAccessToken"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_yee_lock_grant" domainObjectName="TblYeeLockGrant"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_yee_lock_user" domainObjectName="TblYeeLockUser"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="tbl_yee_unlock_record" domainObjectName="TblYeeUnlockRecord"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="v_company_bill" domainObjectName="VCompanyBill"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="v_company_bill_push" domainObjectName="VCompanyBillPush"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="v_unit_user" domainObjectName="VUnitUser"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<!--<table tableName="t_appoint_public" domainObjectName="TAppointPublic"
+			   enableCountByExample="true" enableUpdateByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true"
+			   selectByExampleQueryId="true"/>-->
+
+
+		<!--<table tableName="t_consult" domainObjectName="TConsult"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true"-->
+			   <!--selectByExampleQueryId="true"/>-->
+
+		<table tableName="t_project_release" domainObjectName="TProjectRelease"
+			   enableCountByExample="true" enableUpdateByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true"
+			   selectByExampleQueryId="true"/>
+
+		<table tableName="t_space_release" domainObjectName="TSpaceRelease"
+			   enableCountByExample="true" enableUpdateByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true"
+			   selectByExampleQueryId="true"/>
+	</context>
+</generatorConfiguration>

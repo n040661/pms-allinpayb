@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>register</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
+<script type="text/javascript">
+</script>
+<span style="padding-left: 100px;font-size: 50px">用户注册</span>
+<hr/>
+<br/>
+<div align="center">
+    <form id="form" th:action="@{/v1/backend/registerlinkface}" method="post">
+        <table>
+            <tr>
+                <td align="right"><span style="color: red">* </span>company_name</td>
+                <td><input type="text" name="company_name"/></td>
+            </tr>
+            <tr>
+                <td align="right"><span style="color: red">* </span>contact_name</td>
+                <td><input type="text" name="contact_name"/></td>
+            </tr>
+            <tr>
+                <td align="right">contact_phone</td>
+                <td><input type="text" name="contact_phone"/></td>
+            </tr>
+            <tr>
+                <td align="right">email</td>
+                <td><input type="text" name="email"/></td>
+            </tr>
+            <tr>
+                <td align="right"><span style="color: red">* </span>balance</td>
+                <td><input type="text" name="balance"/></td>
+            </tr>
+            <tr>
+                <td align="right" valign="top"><span style="color: red">* </span>expiry_time</td>
+                <td><input type="date" name="expiry_time"/></td>
+            </tr>
+            <tr>
+                <td align="right"><span style="color: red">* </span>interface</td>
+                <td><input type="checkbox" name="interface_id" value="1"/>identity/historical_selfie_verification
+                <br/>
+                <input type="checkbox" name="interface_id" value="2"/>identity/selfie_idnumber_verification
+                <br/>
+                <input type="checkbox" name="interface_id" value="3"/>ocr/idcard
+                <br/>
+                <input type="checkbox" name="interface_id" value="4"/>ocr/bankcard
+                <br/>
+                <input type="checkbox" name="interface_id" value="5"/>ocr/driving_license
+                <br/>
+                <input type="checkbox" name="interface_id" value="6"/>ocr/vehicle_license
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button type="submit">注册linkface账号</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

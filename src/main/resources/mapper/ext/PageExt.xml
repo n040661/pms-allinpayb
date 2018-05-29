@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dominator.mapper.ext.PageExt">
+    <select id="selectGardenByUserId" parameterType="Dto" resultType="Dto">
+        select u.id as user_id,g.garden_name ,g.id as garden_id,g.zj_park_id ,r.role_name , r.id as role_id, gu.position from t_garden g ,  t_garden_user gu ,t_role r, t_garden_user_role ur,t_user u
+        WHERE u.is_valid = '1'
+        AND gu.is_valid = '1'
+        AND ur.is_valid = '1'
+        AND r.is_valid = '1'
+        AND gu.garden_id = #{garden_id, jdbcType=VARCHAR}
+        AND u.id = gu.user_id
+        AND gu.garden_id = ur.garden_id
+        AND u.id = ur.user_id
+        AND ur.role_id = r.id
+        AND u.user_name = #{user_name,jdbcType=VARCHAR}
+        AND gu.status = '1'/*表示在职人员*/
+        AND g.id = gu.garden_id
+
+    </select>
+
+    <select id="selectCompanyByUserId" parameterType="Dto" resultType="Dto">
+        select u.id as user_id,c.company_name ,c.id as company_id,c.garden_id ,cu.position ,g.zj_park_id  from t_company c ,  t_company_user cu ,t_user u,t_garden g
+        WHERE u.is_valid = '1'
+        AND cu.is_valid = '1'
+        AND g.is_valid = '1'
+        AND c.garden_id = #{garden_id, jdbcType=VARCHAR}
+        AND g.id = c.garden_id
+        AND u.id = cu.user_id
+        AND u.user_name = #{user_name,jdbcType=VARCHAR}
+        AND cu.status = '1'/*表示在职人员*/
+        AND c.id = cu.company_id
+    </select>
+
+
+    <select id="selectRoleId" parameterType="Dto" resultType="java.lang.String">
+        select role_id FROM t_company_user_role
+        WHERE is_valid = '1'
+        AND company_id = #{company_id, jdbcType=VARCHAR}
+        AND user_id = #{user_id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAllByUserId" parameterType="Dto" resultType="Dto">
+        select uu.* ,g.property_id,g.zj_park_id FROM v_unit_user uu, t_garden g ,t_property_weixin_public_config pw WHERE
+        pw.is_valid = '1'
+        and uu.user_id = #{user_id}
+        <if test="garden_id != null and garden_id != ''">
+            and uu.garden_id = #{garden_id}
+        </if>
+        AND g.id = uu.garden_id
+        AND pw.property_id = g.property_id
+        AND pw.property_id = #{property_id}
+    </select>
+
+    <select id="selectGardenUser" parameterType="Dto" resultType="Dto">
+        SELECT gu.position,gur.role_id,r.role_name FROM t_garden_user gu ,t_garden_user_role gur ,t_role r WHERE
+        gu.is_valid = '1'
+        AND gur.is_valid = '1'
+        AND r.is_valid = '1'
+        AND gu.status = '1'
+        AND gu.user_id = #{user_id}
+        AND gu.garden_id = #{garden_id}
+        AND gur.user_id = gu.user_id
+        AND gur.garden_id = gu.garden_id
+        AND r.id = gur.role_id
+    </select>
+
+    <select id="selectCompanyUser" parameterType="Dto" resultType="Dto">
+        SELECT cu.position,cur.role_id,r.role_name ,c.company_name FROM  t_company_user cu,t_company_user_role cur ,t_company c ,t_role r WHERE
+        cu.is_valid = '1'
+        AND cur.is_valid = '1'
+        AND r.is_valid = '1'
+        AND c.is_valid = '1'
+        AND cu.status = '1'
+        AND cu.user_id = #{user_id}
+        AND cu.company_id = #{id}
+        AND cur.user_id = cu.user_id
+        AND cur.company_id = cu.company_id
+        AND c.id = cu.company_id
+        AND r.id = cur.role_id
+    </select>
+
+</mapper>

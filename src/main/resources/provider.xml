@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:dobbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <dobbo:application name="pmsCoreProvider" />
+    <!--使用zookeeper注册中心暴露服务地址-->
+    <dubbo:registry address="zookeeper://139.198.176.144:2181" />
+    <!--<dubbo:registry  protocol="zookeeper" address="localhost:2181" />-->
+    <!--用dubbo协议在29014端口暴露服务-->
+    <dobbo:protocol name="dubbo" port="29012"/>
+
+    <!--声明需要暴露的服务接口-->
+    <dubbo:service interface="com.dominator.service.UserService" ref="userService" />
+    <bean id="userService" class="com.dominator.serviceImpl.UserServiceImpl" />
+
+    <dubbo:service interface="com.dominator.service.RoleService" ref="roleService" />
+    <bean id="roleService" class="com.dominator.serviceImpl.RoleServiceImpl" />
+
+    <dubbo:service interface="com.dominator.service.PublicService" ref="publicService" />
+    <bean id="publicService" class="com.dominator.serviceImpl.PublicServiceImpl" />
+
+    <!-- 园区相关接口 -->
+    <dubbo:service interface="com.dominator.service.GardenService" ref="gardenService" />
+    <bean id="gardenService" class="com.dominator.serviceImpl.GardenServiceImpl" />
+    <!--基于注解扫描
+    <dobbo:annotation package="com.dominator.serviceImpl"/>
+
+    &lt;!&ndash; 把标记了@Controller注解的类转换为bean &ndash;&gt;
+    <context:component-scan base-package="com.dominator.serviceImpl" />-->
+
+    <!--<dubbo:service interface="com.dominator.service.LoginService" ref="loginService" />-->
+    <!--<bean id="loginService" class="com.dominator.serviceImpl.LoginServiceImpl" />-->
+
+</beans>

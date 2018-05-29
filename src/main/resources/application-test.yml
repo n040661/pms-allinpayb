@@ -1,0 +1,151 @@
+server:
+  port: 8080
+  context-path: /pms
+  tomcat:
+    uri-encoding: utf-8
+
+
+
+#数据库连接
+spring:
+    datasource:
+#        write:
+        driverClassName: net.sf.log4jdbc.DriverSpy
+        url: jdbc:log4jdbc:mysql://139.198.189.46:13307/pms?zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+        username: mydev
+        password: 1Qaz2wsx!@#
+#        read:
+#            driverClassName: net.sf.log4jdbc.DriverSpy
+#            url: jdbc:log4jdbc:mysql://139.198.189.46:13308/pms?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+#            username: mydev
+#            password: 1Qaz2wsx!@#
+
+#redis配置
+redis:
+    host: 139.198.189.46
+    port: 16379
+    database: 1
+    database_msg: 14
+    password: 1Qaz2wsx!@#
+    timeout: 10000
+
+#日志配置
+logging:
+    config: classpath:logback-test.xml
+
+###################################
+#sys start
+###################################
+sys:
+    isSendMsg: false
+#邮箱找回基本地址
+    VerifyUrl: http://test.pmssass.com/dashboard/#/reset-password
+
+    #OTOSAAS相关
+    OTOSAAS_BASE_URL: http://dev-api.otosaas.com
+    OTOSAAS_BOSS_URL: http://dev-boss.otosaas.com
+    OTOSAAS_INDEX: /index
+    OTOSAAS_LOGIN: /support/v1/login
+    OTOSAAS_LOGOUT: logout
+
+    #(联合登录)
+    JOINT_LOGIN_APPKEY: 2106796276
+    JOINT_LOGIN_APPSECRET: RddmKUUKxmwqLq6SWkZZs6KJg08vl7zu
+    OTOSAAS_LOGIN_URL: appKey=APPKEY&customerUserId=CUSTOMERUSERID&customerUserPhone=CUSTOMERUSERPHONE&timestamp=TIMESTAMP&sign=SIGN&customerPayLoad=CUSTOMERPAYLOAD
+
+    #访客通行扫描跳转url
+    VISITOR_QR_URL: http://www.baidu.com
+    ##账单详情跳转url
+    BILL_DETAIL_URL: https://test.pmssaas.com/h5/client/#/app/business/bill-detail
+    ##报事报修详情跳转url
+    REPAIR_DETAIL_URL: https://test.pmssaas.com/h5/client/#/app/business/guarantee/detail
+    ##访客通行详情跳转url
+    VISITOR_DETAIL_URL: https://test.pmssaas.com/h5/visitor/#/qrcode-template?
+
+
+###################################
+#sys end
+###################################
+#payMode start
+###################################
+payMode:
+    #下单接口地址
+    ALLINPAY_PLACE_ORDER: https://test.pmssaas.com/pms-allinpay/order/placeOrder
+    #通联退款
+    ALLINPAY_REFUND_URL: https://test.pmssaas.com/pms-allinpay/order/refund
+
+
+###################################
+#payMode end
+###################################
+#wechat start
+###################################
+wechat:
+    #第三方平台（智慧物业园区测试环境）
+    COMP_PMSSAAS_TEST: wx0391f50caed31aca
+    COMPSECRET_PMSSAAS_TEST: e21389bde0c7fc5041f3693c9e37f05c
+
+     #第三方平台（智慧物业园区生产环境）
+    COMP_PMSSAAS_PRO: wxadbed75d813bca6d
+    COMPSECRET_PMSSAAS_PRO: 493468c02a547dfc1312bc8ca28ce8b2
+
+    #公众号消息校验Token
+    WX_TOKEN: 5209ae5136ce113e5fd81bee4bba63ce
+
+    #公众号消息加解密Key
+    ENCODING_AESKEY: 68ea0ca4859f6a34ee58050173ff2aa0bcf2091abcd
+
+    #模版发送地址
+    MSG_TEMPLATE_URL: https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=
+
+    #获取全局ACCESSTOKEN
+    MENU_ACCESS_TOKEN_URL: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=
+
+    #授权域名(测试)
+    GRANT_DOMAIN_NAME: http://test.pmssaas.com/pms/h5/grant.html
+
+    #获取微信用户信息
+    WX_USER_INFO_URL: https://api.weixin.qq.com/sns/userinfo?access_token=
+    #获取网页授权ACCESS_TOKEN
+    WEBPAGE_ACCESS_TOKEN_URL: https://api.weixin.qq.com/sns/oauth2/component/access_token?
+    #获取compoment_access_token
+    COMPONENT_TOKEN_URL: https://api.weixin.qq.com/cgi-bin/component/api_component_token
+
+    #JSAPI_TICKET
+    JSAPI_TOKEN_URL: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=
+    JSAPI_TICKET_URL: https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=
+
+    #微信下单，支付，退款
+    WX_REFUND_URL: https://api.mch.weixin.qq.com/secapi/pay/refund
+    WX_PLACE_ORDER_URL: https://api.mch.weixin.qq.com/pay/unifiedorder
+
+    #OTOSaaS下单与退款
+    #测试
+    #退款回调（来自微信）
+    WEIXIN_PAY_NOTIFY_URL : http://test.pmssaas.com/pms/api/v1/weixin/pay/callback
+    OTOSAAS_REFUND_NOTIFY_URL: https://dev-pms.otosaas.com/api/validation/v1
+    ALL_IN_PAY_RESULT_NOTICE_URL: https://test.pmssaas.com/pms/api/v1/weixin/pay/callback4AllInPay
+
+    #OTOSSaaS公私钥
+    #测试
+    OTOSSAAS_PUBLIC_KEY: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQChOG2Pst45qiy3dBdjy4/g9OkYsP/yvI5r9aqEjoEXxt0OkfT0Tk3XUUb8ZHP6hhQf6pIxHzfhvbxZFCIj+Eehvy+O3k4GX/wxGJLuHgsM3BmFLWF6C1hNFXtkueXz3RZNFgrfKWcYKYE6t7wRNxFWNPZJQRwrL52ajwQ12uFeMQIDAQAB
+    OTOSSAAS_PRIVATE_KEY: MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKE4bY+y3jmqLLd0F2PLj+D06Riw//K8jmv1qoSOgRfG3Q6R9PROTddRRvxkc/qGFB/qkjEfN+G9vFkUIiP4R6G/L47eTgZf/DEYku4eCwzcGYUtYXoLWE0Ve2S55fPdFk0WCt8pZxgpgTq3vBE3EVY09klBHCsvnZqPBDXa4V4xAgMBAAECgYB4IFOCfwSWcvZeu2GyOjs6o0IL49bSRyzXxHUJ0CTgUozkDl02rCHUDfuWlELWqJDWNzI258v7qCRvO1E0/Apii+n4H6/ApWn48ErYtq687Zw1sddf84GpADTQh3ENNPZ9Sva0I0O5VqVImJ3XHyAnKL3Ym2Dnww997lG+UYX0AQJBANHL8zP2X9PbamFYqgigJDSvVMr6HZHCEVUYxoY+4SKIJYEsmk1yKGZleYjaf+KDU06jTpA9G8xBInlfyO/CDPUCQQDEudCgZ0Aaf+d1ckAMp7PUPg0U1KWPjggSbkX68R1EGSGI2j9a0zwfNxpxHLQ9cyMQEeG6+IsBb5agzMoB6kbNAkAdlDu938azAASHpRCUFsAEDZRO6eSxYENBVDTpSIRFchyXkcpPkQDRLw1rliLhtNJSDARPoc4Bhk1t/2s9IobhAkEAtAShT5cMBvPSFxwUVkBEA81AZTZtxh6fblYwfYCUWlNw521nmjJACwR+ktFEchLhG/xxBooXkZnOSZj8paH/ZQJAHneAlcdW87YNaO0kW2ytZINeU6gvqqvd8XX592OKa9K4QpsELeflaUAt050gJEN5VMgP1OITeePANyq/YwWFWQ==
+
+    #微信第三方地址
+    CREATE_PREAUTHCODE_URL    : https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=xxx
+    GET_AUTHORIZER_OPTION_URL : https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_option?component_access_token=xxxx
+    SET_AUTHORIZER_OPTION_URL : https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option?component_access_token=xxxx
+    GET_AUTHORIZER_INFO_URL   : https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token=xxxx
+    QUERY_AUTH_INFO_URL       : https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=xxxx
+
+
+alipay:
+     #创建应用后生成
+     APP_ID: 2018042460016446
+     #支付宝网关（固定）
+     URL: https://openapi.alipay.com/gateway.do
+     #开发者应用私钥，由开发者自己生成
+     APP_PRIVATE_KEY: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCtTkuSUw2sdJjMjqjfobvUlDkn8O9RxjHZFqffovQ3++SjzcVSROk9yjMmcDuykL3RjAr+Hin9NpnTrdTOrVJ4qXKywYVFS+QJmwBP0qbOwnX7vBHLqy1vbHecIrY2/8M3037f0hHLfsCDX9N2PFkC6jGCpY/7Z9AxVbbzCvqpur3OU3+Pgpq7gI74ibfEORQwo+FdlQPhtvrn8PlptfdWSMYCyuprr+K1gqxBSR+p4IIRiRw01Ti8DNoj3EXhSjcE58d/hxjz/hIsg4KGILprxsCOTgpdyv71+Rrvcp+u9T968RMmpynUSS8LAQg/Lgmr00odbCvNw5IRx2YGqwY1AgMBAAECggEAGSCG+HouO1jUZqQwe+wZLaMn/lCCglq4E3+ja1tXCV7uMYm+GEWBg8HzVJllLmip/N3PIjUBZYMrHnPPrP+YO4Jl7OD+D6QHNhVRIEGsicHMFWmZMuxotAUH+o1V2fePOGLjvFPa3KROCT41jKkHRtLpxsV2cL8GgoCo++gVm9IIZxVphkZ0Nl+f+NAM9jaB+9B9M48/hUemIWW7KYFXLs0yTsFeTNpMw7Cp1p50Znv8c+9STCxPFxjHylNuNpk3IyqE2UD8DmPoLoHCAE9n8QsBCDs+PD+8KqFoyYpMES4yNafA04k/CUdwR7kYARQUou9y8HxBmQuNz2vLEARPKQKBgQDXSRcggZuUvTNCXofov6sUbEOd5AMWuCw6qtHvWkiaL+2rdrlJiriCSsPGKkjQ3IMAzrh/Y3A+X218XqIBqqVZDAsuo2zIszAQqdaHTiM/qlPQrSiwGDHW+eMEW9unWb4xsLOQHZdrlr2qYkNNxLMW63WgtJMnAuzQ/513UsC3rwKBgQDOFMlCjvQoZw4/EKheSWDJHuMsP/ThkCiJkqNO1gcg54SCmObe1rZZhSn6UMGdLWADH0IH5dqSRm0Rtg2wu9vxaesXYlSwExzSZ7xTC/u/m0YobHsfVk2L7bX51MJpH/ielCRxb0a+HlVuX775oAjigVHrJilpFpFiGiYzkiW1WwKBgDc0GccPFPr17P/2x3jqNQ8+l7QT9KrNvSGqDb0HdJh887/E6Mwv0xIt47ebviI4eSsq1uprcCu+Qo/ioD43KMEFspRZ+ZoZQJj1Q/pcEfPQVD+tN0K4YYdTel/ywgdOntOVEOZCgEJpW+cl3UZCyv10kSwNQbJ+MIWDFjizspEnAoGAbgKooZBAhGTnNQFGb/bJ5PNJIDEQH21eRnpyFT6p1YXhtfm7nQ+PjmBI1WhQwwAa9e+0xxSLxnQz+zVtP4A5XDlHl1cVkFzTkPpxjP+jp1hTbnbijwr6II2IDFLoaUf452Z7wdY+NHVq853HC+jDdW7FdTsM9h1nBLCi3frRiGsCgYEAtbB3QwTyBZpHaNaDBJY9to+ctB9D6aBAoncLkBXdhqYi2qG7zhsuXTrN/EIg4LxFVQkRNFyRi7oDIkIzzzCkym+LjHSBOHtd86NQAPkiFP7LklwiP+PQL2ltMcUZXjtRYYENef0IhzB1EW2akZDW0U+y98ov1TCg0JAkFafPMzk=
+     #支付宝公钥，由支付宝生成
+     ALIPAY_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhQTJs+1XWXmCTpI2WTQE6HgEPulYP5SHZZlFKdmG5fOQQwf6qEQG6D7SA4d6mbtApZIhL9WeFzxhytDrqrwlCWWd3YzII8Dd3F7fVtKMnqr2zgxEAlGbz6AsgyaAq70Y2ksL8XzmKV2vN8ZJuESf1chL7BIntdc61UZIiGdd6m5+SuQdRQSlqH5RTgQdbDjB+FvgipngtUbko4GZUuBkaubdzCkF5twBV8CK7BrjWlsDkYIkjQidph9Gq1kW04S/VLYifm50KHnK/o1k7mfnLNH79OHfEza1wcdNF7YsWjKUHI8XaKVu/AYXz2KiX8H76IY+JD0qvMhkp8lRxi3jxwIDAQAB
+

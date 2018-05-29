@@ -1,0 +1,25 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xmlns:p="http://www.springframework.org/schema/p" xmlns:dobbo="http://code.alibabatech.com/schema/dubbo"-->
+       <!--xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd-->
+       <!--http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">-->
+
+    <!--&lt;!&ndash;访问方应用信息，用于计算依赖管&ndash;&gt;-->
+    <!--<dobbo:application name="client" />-->
+    <!--&lt;!&ndash;使用zookeeper注册中心暴露服务地址&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<dubbo:registry address="zookeeper://47.100.2.119:2181" />&ndash;&gt;-->
+    <!--<dubbo:registry address="zookeeper://47.100.2.119:2181" />-->
+    <!--&lt;!&ndash;<dubbo:registry  protocol="zookeeper" address="localhost:2181" timeout="100000"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;用dubbo协议在29014端口暴露服务&ndash;&gt;-->
+    <!--&lt;!&ndash;<dobbo:protocol name="dubbo" port="29014"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;闸机服务接口&ndash;&gt;-->
+    <!--<dubbo:reference id="gateService" interface="com.dominator.service.GateService" timeout="3000" retries="2"/>-->
+
+
+    <!--&lt;!&ndash;<dubbo:service interface="com.dominator.service.LoginService" ref="loginService" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<bean id="loginService" class="com.dominator.serviceImpl.LoginServiceImpl" />&ndash;&gt;-->
+
+<!--</beans>-->

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dominator.mapper.ext.TRepairExt">
+
+    <select id="listCompanyRepairPage"  resultType="Dto">
+        select @rowno:=@rowno+1 as rowno,
+        u.nick_name,
+        u.phone_num as company_user_phone,
+        r.id as repair_id,
+        r.repair_num,
+        r.repair_content,
+        r.repair_time,
+        r.assign_time,
+        r.complete_time,
+        r.repair_status,
+        r.repair_pics,
+        u.id as user_id
+        FROM t_user u, t_repair r ,(SELECT @rowno:=0) t
+        WHERE u.id = r.repair_user_id
+        AND r.company_id = #{company_id}
+        AND u.is_valid = '1'
+        AND r.is_valid = '1'
+        AND r.repair_status = #{repair_status ,jdbcType=VARCHAR}
+        <if test="create_time!=null and create_time!='' ">
+            AND repair_time &gt;= #{create_time}
+        </if>
+        <if test="end_time!=null and end_time!='' ">
+            AND repair_time &lt;= #{end_time}
+        </if>
+        <if test='repair_status!=null and repair_status=="0" '>
+            ORDER BY r.repair_time DESC
+        </if>
+        <if test='repair_status!=null and repair_status=="1" '>
+            ORDER BY r.assign_time DESC
+        </if>
+        <if test='repair_status!=null and repair_status=="2" '>
+            ORDER BY r.complete_time DESC
+        </if>
+    </select>
+
+
+    <select id="listGardenRepairPage" resultType="Dto">
+        select @rowno:=@rowno+1 as rowno,
+        u.nick_name,
+        u.phone_num as company_user_phone,
+        r.id as repair_id,
+        r.repair_num,
+        r.repair_content,
+        r.repair_time,
+        r.assign_time,
+        r.complete_time,
+        r.repair_status,
+        r.repair_pics,
+        u.id as user_id
+        FROM t_user u, t_repair r ,(SELECT @rowno:=0) t
+        WHERE r.garden_id = #{garden_id}
+        and u.id = r.repair_user_id
+        AND u.is_valid = '1'
+        AND r.is_valid = '1'
+        AND r.repair_status = #{repair_status}
+        <if test="create_time!=null and create_time!='' ">
+            AND repair_time &gt;= #{create_time}
+        </if>
+        <if test="end_time!=null and end_time!='' ">
+            AND repair_time &lt;= #{end_time}
+        </if>
+        <if test='repair_status!=null and repair_status=="0" '>
+            ORDER BY r.repair_time DESC
+        </if>
+        <if test='repair_status!=null and repair_status=="1" '>
+            ORDER BY r.assign_time DESC
+        </if>
+        <if test='repair_status!=null and repair_status=="2" '>
+            ORDER BY r.complete_time DESC
+        </if>
+    </select>
+
+    <select id="listGardenUser" parameterType="Dto" resultType="Dto">
+        SELECT u.id,u.nick_name,u.phone_num as garden_user_phone FROM t_garden_user gu, t_user u WHERE u.is_valid = '1'
+        AND gu.is_valid = '1'
+        AND gu.garden_id = #{garden_id}
+        AND gu.user_id = u.id
+        AND gu.status = '1'
+    </select>
+
+    <select id="repairToUser" parameterType="Dto" resultType="Dto">
+        SELECT r.*,u.phone_num as company_user_phone,u.nick_name,wa.app_id  FROM  t_repair r,t_user u ,t_property_weixin_public_config pw,
+        tbl_wxopen_authorizer_account_info wa,t_garden g WHERE
+        r.is_valid ='1'
+        AND u.is_valid = '1'
+        AND g.is_valid = '1'
+        AND pw.is_valid = '1'
+        AND r.repair_status = #{repair_status}
+        AND r.id = #{repairId}
+        AND g.id = r.garden_id
+        AND g.property_id = pw.property_id
+        AND pw.weixin_config_id = wa.id
+        AND r.repair_user_id = u.id
+    </select>
+
+    <select id="repairDetail" parameterType="String" resultType="Dto">
+        SELECT  r.*,
+        (
+        case
+        when r.repair_status='0' then "待处理"
+        when r.repair_status='1' then "处理中"
+        when r.repair_status='2' then "已处理"
+        end
+        ) as repair_name,
+        g.garden_name,
+        g.telephone,
+        u.phone_num,
+        u.nick_name
+        FROM t_repair r ,t_garden g ,t_user u
+        WHERE
+        r.is_valid = '1'
+        AND g.is_valid = '1'
+        AND u.is_valid = '1'
+        AND r.id = #{repair_id}
+        AND r.garden_id = g.id
+        AND u.id = r.repair_user_id
+    </select>
+
+</mapper>

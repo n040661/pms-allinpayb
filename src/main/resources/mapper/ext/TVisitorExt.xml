@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dominator.mapper.ext.TVisitorExt">
+
+	<select id="listBackVisitorPage" parameterType="Dto" resultType="Dto">
+		SELECT v.* ,
+		replace(replace(replace(v.expect_time,"年","-"),"月","-"),"日","") as visitor_time,
+		c.company_name,concat(a.province,a.city,a.area,a.street) contact_address FROM t_visitor v ,t_company c ,t_address a WHERE
+		v.is_valid = '1'
+		AND c.is_valid = '1'
+		AND a.is_valid = '1'
+		AND c.id = v.company_id
+		AND c.id = a.owner_id
+		<if test="status!=null and status!='' ">
+			AND v.status = #{status, jdbcType=VARCHAR}
+		</if>
+		<if test="create_time!=null and create_time!='' ">
+			AND expect_time &gt;= #{create_time}
+		</if>
+		<if test="end_time!=null and end_time!='' ">
+			AND expect_time &lt;= #{end_time}
+		</if>
+		<if test="company_id != null and company_id != '' ">
+			AND v.company_id = #{company_id, jdbcType=VARCHAR}
+		</if>
+		<if test="garden_id != null and garden_id != '' ">
+			AND v.garden_id = #{garden_id, jdbcType=VARCHAR}
+		</if>
+		ORDER  BY
+		<choose>
+			<when test=' status == "0" or status == "2" '>
+				v.expect_time desc
+			</when>
+			<otherwise>
+				v.fact_time desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectVisitorNum" parameterType="Dto" resultType="String">
+		select count(*) from t_visitor where expect_time = #{now}
+		<if test="company_id !=null and company_id != ''">
+			and company_id = #{company_id}
+		</if>
+		<if test="garden_id != null and garden_id != '' ">
+			AND garden_id = #{garden_id}
+		</if>
+		AND is_valid='1'
+		AND status = #{status, jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectVisitorAll" parameterType="Dto" resultType="String">
+		select count(*) from t_visitor where is_valid='1'
+		<if test="company_id !=null and company_id != ''">
+			AND company_id = #{company_id}
+		</if>
+		<if test="garden_id != null and garden_id != '' ">
+			AND garden_id = #{garden_id}
+		</if>
+	</select>
+
+	<select id="deviceList" parameterType="Dto" resultType="Dto">
+		select device_name,device_id from t_visitor_zj where is_valid='1'
+		and garden_id = #{garden_id}
+		AND device_id IN
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>

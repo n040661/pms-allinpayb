@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>register-login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<span style="font-size: 32px" th:text="${result}+'！'+${username}+'，欢迎您！'" />
+<br/>
+<hr/>
+<a th:href="@{/login}">我要登录</a>
+</body>
+</html>

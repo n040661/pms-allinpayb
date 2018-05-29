@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dominator.mapper.ext.TCommonExt">
+    <select id="list" resultType="Dto">
+        SELECT
+        c.company_name,
+        c.contact_name,
+        c.contact_phone,
+        c.contact_address,
+        cb.paid_fee,
+        c.id as company_id
+        FROM t_company c, v_company_bill cb
+        WHERE c.id = cb.company_id
+        AND c.is_valid = '1'
+        AND c.garden_id = #{garden_id}
+        <if test="condition != null">
+            AND (
+            c.company_name LIKE concat('%', #{condition}, '%')
+            OR c.contact_name LIKE concat('%', #{condition}, '%')
+            OR c.contact_phone LIKE concat('%', #{condition}, '%')
+            )
+        </if>
+        <if test="is_paid != null and !&quot;&quot;.equals(is_paid)">
+            AND cb.is_paid = #{is_paid}
+        </if>
+    </select>
+
+    <select id="listBackVisitorPage" parameterType="Dto" resultType="Dto">
+        SELECT v.* ,
+        replace(replace(replace(v.expect_time,"年","-"),"月","-"),"日","") as visitor_time,
+        c.company_name,concat(a.province,a.city,a.area,a.street) contact_address FROM t_visitor v ,t_company c ,t_address a WHERE
+        v.is_valid = '1'
+        AND c.is_valid = '1'
+        AND a.is_valid = '1'
+        AND c.id = v.company_id
+        AND c.id = a.owner_id
+        <if test="status!=null and status!='' ">
+            AND v.status = #{status, jdbcType=VARCHAR}
+        </if>
+        <if test="create_time!=null and create_time!='' ">
+            AND expect_time &gt;= #{create_time}
+        </if>
+        <if test="end_time!=null and end_time!='' ">
+            AND expect_time &lt;= #{end_time}
+        </if>
+        <if test="company_id != null and company_id != '' ">
+            AND v.company_id = #{company_id, jdbcType=VARCHAR}
+        </if>
+        <if test="garden_id != null and garden_id != '' ">
+            AND v.garden_id = #{garden_id, jdbcType=VARCHAR}
+        </if>
+        ORDER  BY
+        <choose>
+            <when test=' status == "0" or status == "2" '>
+                v.expect_time desc
+            </when>
+            <otherwise>
+                v.fact_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--garden_id String 必传 园区id-->
+    <!--company_id-->
+    <!--fee_type String 必传 默认0  费用类型 0水 1电费 2煤气 3房租物业-->
+    <!--is_paid String 必传 默认0 0待缴费 1已缴费-->
+    <!--is_pushed String 必传 默认1 0待推送，1已推送-->
+    <!--startTime datetime 非必传-->
+    <!--endTime datetime 非必传-->
+    <!--condition String 非必传 账单号/缴费单位-->
+    <select id="listBills" parameterType="Dto" resultType="Dto">
+        SELECT cb.*,c.company_name,
+        concat(LEFT(cb.bill_year_month,4),"年-",RIGHT(cb.bill_year_month,2), "月",
+        case
+        when cb.fee_type='0' then "水费"
+        when cb.fee_type='1' then "电费"
+        when cb.fee_type='2' then "燃气费"
+        when cb.fee_type='3' then "房租"
+        when cb.fee_type='4' then "物业"
+        end
+        ) as bill_name,
+        cb.id as company_bill_id,
+        c.id as company_id
+        FROM t_company_bill cb, t_company c
+        WHERE cb.company_id = c.id
+        AND cb.is_valid = '1'
+        AND c.is_valid = '1'
+        <if test="is_paid != null and !&quot;&quot;.equals(is_paid)">
+            AND cb.is_paid = #{is_paid}
+        </if>
+        <if test="garden_id != null and !&quot;&quot;.equals(garden_id)">
+            AND c.garden_id = #{garden_id}
+        </if>
+        <if test="company_id != null and !&quot;&quot;.equals(company_id)">
+            AND c.id = #{company_id}
+        </if>
+        <if test="is_pushed != null and !&quot;&quot;.equals(is_pushed)">
+            AND cb.is_pushed = #{is_pushed}
+        </if>
+        <if test="fee_type != null and !&quot;&quot;.equals(fee_type)">
+            AND cb.fee_type = #{fee_type}
+        </if>
+        <if test="condition != null">
+            AND (
+            cb.bill_num like concat('%', #{condition}, '%')
+            OR c.company_name like concat('%', #{condition}, '%')
+            )
+        </if>
+        <if test="startTime != null and !&quot;&quot;.equals(startTime)">
+            AND cb.expiry_time >= #{startTime}
+        </if>
+        <if test="endTime != null and !&quot;&quot;.equals(endTime)">
+            AND cb.expiry_time <![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="is_paid == 0">
+            ORDER BY cb.create_time desc
+        </if>
+        <if test="is_paid == 1">
+            ORDER BY cb.pay_time desc
+        </if>
+    </select>
+
+
+
+
+
+
+
+
+
+
+    <select id="listpageByorder" parameterType="Dto" resultType="Dto">
+        select *,
+        concat(
+        case
+        when fee_type='0' then "水费"
+        when fee_type='1' then "电费"
+        when fee_type='2' then "燃气费"
+        when fee_type='3' then "房租"
+        when fee_type='4' then "物业费"
+        end
+        ) as bill_name
+        from t_company_bill
+        <where>
+            bill_year_month in
+            ( select * from
+            ( select DISTINCT bill_year_month as month from t_company_bill  GROUP BY bill_year_month DESC limit
+            <if test="startpage != null">
+                #{startpage, jdbcType=VARCHAR},  <!-- 开始条数 -->
+            </if>
+
+            <if test="pageSize != null">
+                #{pageSize, jdbcType=VARCHAR} <!-- 分页月份size -->
+            </if>
+            ) as b)
+            AND is_valid = '1'
+            AND
+            company_id = #{company_id, jdbcType=VARCHAR}  <!-- 企业id -->
+        </where>
+        ORDER  by bill_year_month DESC
+    </select>
+
+
+    <select id="billbymonth" parameterType="Dto" resultType="Dto">
+        select *,
+        concat(
+        case
+        when fee_type='0' then "水费"
+        when fee_type='1' then "电费"
+        when fee_type='2' then "燃气费"
+        when fee_type='3' then "房租"
+        when fee_type='4' then "物业费"
+        end
+        ) as bill_name
+        from t_company_bill where
+        bill_year_month = #{bill_year_month, jdbcType=VARCHAR}  <!-- 企业id -->
+        AND
+        company_id = #{company_id, jdbcType=VARCHAR}  <!-- 企业id -->
+
+    </select>
+
+    <select id="getNotPaidTotal" resultType="java.lang.String">
+        select sum(total_fee) from t_company_bill where is_paid = 0 and is_valid = 1
+        AND  company_id = #{company_id,jdbcType=VARCHAR}
+    </select>
+</mapper>
